@@ -1,0 +1,70 @@
+---
+- name: Given no previous deploy
+  hosts: all
+  tasks:
+    - name: Assert deploy path does not exist
+      stat:
+        path: "/tmp/test_deploy"
+      register: st
+    - debug:
+        msg: "Path does not exist and is a directory"
+      when: st.stat.exists is defined and not st.stat.exists
+
+- name: When Deploying
+  hosts: all
+  become: yes
+  pre_tasks:
+    - name: Include parameters
+      include_vars: "parameters.yml"
+  roles:
+      - deploy.setup
+      - deploy.project
+      - deploy.finalize
+  vars:
+    deploy:
+      project:
+        root: '/tmp/test_deploy'
+        name: 'My Project'
+        scm: 'rsync'
+        source: "dist/"
+        keep_previous_releases: 3
+        copy_previous_release: True
+        writable_dirs:
+          - src: "var/files"
+        shared_dirs:
+          - "var/files"
+        shared_files: []
+        templated_files:
+          -
+            source: "config/settings.ini.j2"
+            dest: "config/settings.ini"
+            owner: "{{ ansible_user }}"
+            group: "{{ ansible_user }}"
+      finalize:
+        required_sudo: False
+        commands: []
+        to_be_restarted_services: []
+    permission_model: 'chmod'
+
+- name: Then a successful deploy with rsync should be done
+  hosts: all
+  vars:
+    deploy_destination: "/tmp/test_deploy"
+  tasks:
+    - name: Assert deploy destination path does exist
+      stat:
+        path: "{{ deploy_destination }}"
+      register: st
+    - debug:
+        msg: "Path exists and is a directory"
+      when: st.stat.exists is defined and st.stat.exists
+    - name: Assert deploy destination /current path does exist
+      stat:
+        path: "{{ deploy_destination }}/current"
+      register: st
+    - fail:
+        msg: "Path is not a symlink"
+      when: st.stat.exists is defined and st.stat.exists and st.stat.islnk == False
+    - debug:
+        msg: "Path exists and is a symlink"
+      when: st.stat.exists is defined and st.stat.exists and st.stat.islnk
