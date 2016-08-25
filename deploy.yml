@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  pre_tasks:
+    - name: Include parameters
+      include_vars: "parameters.yml"
+  roles:
+      - deploy.setup
+      - deploy.project
+      - deploy.finalize
