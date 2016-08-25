@@ -4,8 +4,6 @@ dist: trusty
 
 matrix:
   include:
-    - env: ANSIBLE_VERSION=1.8.4
-    - env: ANSIBLE_VERSION=1.9.5
     - env: ANSIBLE_VERSION=2.1.0
 
 before_install:
@@ -15,7 +13,7 @@ before_install:
  - ansible --version
 
 script:
- - echo localhost > inventory
+ - ansible-galaxy install -r requirements.yml -p roles/
  - ansible-playbook -i inventory --connection=local --sudo -v deploy.yml
 
 notifications:
