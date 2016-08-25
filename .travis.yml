@@ -19,4 +19,4 @@ script:
  - ansible-playbook -i inventory --connection=local --sudo -v deploy.yml
 
 notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/ 
