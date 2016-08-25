@@ -14,7 +14,7 @@ before_install:
 
 script:
  - ansible-galaxy install -r requirements.yml -p roles/
- - ansible-playbook -i inventory.ini --connection=local --sudo -v deploy.yml
+ - ansible-playbook -i inventory.ini --connection=local --sudo -v deploy_test.yml
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/ 
