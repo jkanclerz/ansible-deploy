@@ -5,20 +5,20 @@
 # from github
 - src: jkanclerz.deploy-project
   path: roles/
-  version: v0.9.2
+  version: master
   name: deploy.project
 
 - src: jkanclerz.deploy-finalize
   path: roles/
-  version: v0.9.2
+  version: master
   name: deploy.finalize
 
 - src: jkanclerz.deploy-setup
   path: roles/
-  version: v0.2
+  version: master
   name: deploy.setup
 
 - src: jkanclerz.deploy-project-php-symfony
   path: roles/
-  version: v0.1
+  version: master
   name: deploy.project.php.symfony
