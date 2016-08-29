@@ -1,5 +1,5 @@
 # ansible-deploy
-![alt tag](https://travis-ci.org/jkanclerz/ansible-deploy.svg?branch=master)
+[![Build Status](https://travis-ci.org/jkanclerz/ansible-deploy.svg?branch=master)](https://travis-ci.org/jkanclerz/ansible-deploy)
 
 Ansible abstraction for deploy tasks.
 
