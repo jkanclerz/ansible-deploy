@@ -1,7 +1,7 @@
 deploy:
   project:
     root: '/tmp/test_deploy'
-    name: 'My Project'
+    name: 'My Test Project'
     scm: 'rsync'
     source: "dist/"
     keep_previous_releases: 3

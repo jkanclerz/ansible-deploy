@@ -9,6 +9,9 @@
     - debug:
         msg: "Path does not exist and is a directory"
       when: st.stat.exists is defined and not st.stat.exists
+    # - fail:
+    #     msg: "Path exist and is a directory"
+    #   when: st.stat.exists is defined and st.stat.exists
 
 - name: When Deploying
   hosts: all
@@ -25,6 +28,9 @@
   hosts: all
   vars:
     deploy_destination: "/tmp/test_deploy"
+    existing_project_file:
+        src: "/tmp/test_deploy/current/project"
+        content: "my project"
   tasks:
     - name: Assert deploy destination path does exist
       stat:
@@ -33,13 +39,75 @@
     - debug:
         msg: "Path exists and is a directory"
       when: st.stat.exists is defined and st.stat.exists
-    - name: Assert deploy destination /current path does exist
-      stat:
-        path: "{{ deploy_destination }}/current"
-      register: st
-    - fail:
-        msg: "Path is not a symlink"
-      when: st.stat.exists is defined and st.stat.exists and st.stat.islnk == False
-    - debug:
-        msg: "Path exists and is a symlink"
-      when: st.stat.exists is defined and st.stat.exists and st.stat.islnk
+
+    - name: Current release link exists after deploy
+      debug: msg=""
+    - include: 'asserts/file_linking.yml'
+      vars:
+        file_src: "{{ deploy_destination }}/current"
+    
+    - name: Assert deployed files exist and has content
+      debug: msg=""
+    - include: 'asserts/file_exists.yml'
+      vars:
+        file_src: "{{existing_project_file.src}}"
+
+    - include: 'asserts/file_content_equality.yml'
+      vars:
+        file_src: "{{existing_project_file.src}}"
+        file_content: "{{existing_project_file.content}}"
+
+    - name: Assert shared directories
+      debug: msg=""
+    - include: 'asserts/file_linking.yml'
+      vars:
+        file_src: "{{ deploy_destination }}/current/var/files"
+
+
+
+- name: Given changes are done for first deploy
+  hosts: all
+  tasks:
+    - name: change content current released project
+      lineinfile: dest=/tmp/test_deploy/current/project regexp="^my project" insertafter="my project" line="my project changed"
+
+- name: When Deploying second time
+  hosts: all
+  become: yes
+  pre_tasks:
+    - name: Include parameters
+      include_vars: "vars/params.yml"
+  roles:
+      - deploy.setup
+      - deploy.project
+      - deploy.finalize
+  
+- name: Then a current and previous deplpy are available
+  hosts: all
+  vars:
+    deploy_destination: "/tmp/test_deploy"
+    existing_project_file:
+        src: "/tmp/test_deploy/current/project"
+        content: "my project"
+    previous_project_file:
+        src: "/tmp/test_deploy/previous/project"
+        content: "my project changed"
+
+  tasks:
+    - name: Previous release link exists after deploy
+      debug: msg=""
+    - include: 'asserts/file_linking.yml'
+      vars:
+        file_src: "{{ deploy_destination }}/previous"
+
+    - name: Previous release contains previous project version
+      debug: msg=""
+    - include: 'asserts/file_content_equality.yml'
+      vars:
+        file_src: "{{existing_project_file.src}}"
+        file_content: "{{existing_project_file.content}}"
+
+    - include: 'asserts/file_content_equality.yml'
+      vars:
+        file_src: "{{previous_project_file.src}}"
+        file_content: "{{previous_project_file.content}}"

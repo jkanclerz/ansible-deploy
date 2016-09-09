@@ -1,0 +1,11 @@
+---
+- name: Assert Synchronized file exists
+  stat:
+    path: "{{ file_src }}"
+  register: asserted_file
+- fail:
+    msg: "Synchronized not file contains deployed content"
+  when: asserted_file.stat.exists is defined and (not asserted_file.stat.exists)
+- debug:
+    msg: "Project file exists"
+  when: asserted_file.stat.exists is defined and asserted_file.stat.exists

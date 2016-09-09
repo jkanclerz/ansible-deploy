@@ -1,0 +1,11 @@
+---
+- name: Assert Synchronized file contains deployed content
+  command: cat {{ file_src }}
+  register: asserted_file_content
+- fail:
+    msg: "Synchronized file not contain deployed content"
+  when: asserted_file_content.stdout != file_content
+
+- debug:
+    msg: "Synchronized file contains deployed content"
+  when: asserted_file_content.stdout == file_content

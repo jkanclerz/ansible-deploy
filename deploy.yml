@@ -11,7 +11,7 @@
         root: '/tmp/test_deploy'
         name: 'My Project'
         scm: 'rsync'
-        source: "dist/"
+        source: "dist"
         keep_previous_releases: 3
         copy_previous_release: True
         writable_dirs:

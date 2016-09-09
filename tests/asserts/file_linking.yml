@@ -1,0 +1,11 @@
+---
+- name: Assert file linking
+  stat:
+    path: "{{ file_src }}"
+  register: asserted_file
+- fail:
+    msg: "Asserted link file is not a link"
+  when: asserted_file.stat.exists is defined and ((not asserted_file.stat.exists) or asserted_file.stat.islnk == False)
+- debug:
+    msg: "Asserted link file is a link"
+  when: asserted_file.stat.exists is defined and asserted_file.stat.exists and asserted_file.stat.islnk == True
