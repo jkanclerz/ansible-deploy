@@ -6,7 +6,10 @@ Ansible abstraction for deploy tasks.
 
 # Ansible Deploy structure
 
-deploy project dist with various methods
+Allows to deploy project dist with various methods. Contains reference to three main roles
+	- [Deploy setup](https://github.com/jkanclerz/ansible-deploy-setup)
+	- [Deploy project](https://github.com/jkanclerz/ansible-deploy-project)
+	- [Deploy finalize](https://github.com/jkanclerz/ansible-deploy-finalize)
 
 ## Role Variables
 
