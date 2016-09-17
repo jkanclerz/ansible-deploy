@@ -1,6 +1,6 @@
 - name: Given deploy is done
   hosts: all
-  become: yes
+  become: no
   pre_tasks:
     - name: Include parameters
       include_vars: "vars/params.yml"
@@ -17,7 +17,7 @@
 
 - name: And second deploy is done
   hosts: all
-  become: yes
+  become: no
   pre_tasks:
     - name: Include parameters
       include_vars: "vars/params.yml"
@@ -28,7 +28,7 @@
 
 - name: When rollback is done
   hosts: all
-  become: yes
+  become: no
   pre_tasks:
     - name: Include parameters
       include_vars: "vars/params.yml"
