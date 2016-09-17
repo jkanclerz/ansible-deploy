@@ -108,6 +108,26 @@ Define define commands to be executed after finished deploy
 
 Define define services that should be restarted after finished deploy
 
+
+# Ansible Rollback
+
+Allows to rollback project deployed via above roles
+
+- [Deploy rollback](https://github.com/jkanclerz/ansible-deploy-rollback)
+
+## Role Variables
+
+Available variables are listed below, along with example values (see `deploy.yml`):
+
+    deploy:
+      project:
+        root: '/tmp/test_deploy'
+
+
+    deploy.project.root: '/tmp/test_deploy'
+
+Destination project directory.
+
 ## License
 
 MIT / BSD
