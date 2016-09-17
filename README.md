@@ -117,7 +117,7 @@ Allows to rollback project deployed via above roles
 
 ## Role Variables
 
-Available variables are listed below, along with example values (see `deploy.yml`):
+Available variables are listed below, along with example values (see `rollback.yml`):
 
     deploy:
       project:
