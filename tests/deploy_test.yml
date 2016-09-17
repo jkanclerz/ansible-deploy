@@ -9,9 +9,9 @@
     - debug:
         msg: "Path does not exist and is a directory"
       when: st.stat.exists is defined and not st.stat.exists
-    # - fail:
-    #     msg: "Path exist and is a directory"
-    #   when: st.stat.exists is defined and st.stat.exists
+    - fail:
+        msg: "Path exist and is a directory"
+      when: st.stat.exists is defined and st.stat.exists
 
 - name: When Deploying
   hosts: all
