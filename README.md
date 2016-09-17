@@ -124,6 +124,7 @@ Available variables are listed below, along with example values (see `deploy.yml
         root: '/tmp/test_deploy'
 
 
+
     deploy.project.root: '/tmp/test_deploy'
 
 Destination project directory.
