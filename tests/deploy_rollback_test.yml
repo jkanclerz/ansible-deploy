@@ -1,0 +1,52 @@
+- name: Given deploy is done
+  hosts: all
+  become: yes
+  pre_tasks:
+    - name: Include parameters
+      include_vars: "vars/params.yml"
+  roles:
+      - deploy.setup
+      - deploy.project
+      - deploy.finalize
+
+- name: And changes are done for first deploy
+  hosts: all
+  tasks:
+    - name: change content current released project
+      lineinfile: dest=/tmp/test_deploy/current/project regexp="^my project" insertafter="my project" line="my project changed"
+
+- name: And second deploy is done
+  hosts: all
+  become: yes
+  pre_tasks:
+    - name: Include parameters
+      include_vars: "vars/params.yml"
+  roles:
+      - deploy.setup
+      - deploy.project
+      - deploy.finalize
+
+- name: When rollback is done
+  hosts: all
+  become: yes
+  pre_tasks:
+    - name: Include parameters
+      include_vars: "vars/params.yml"
+  roles:
+      - deploy.rollback
+
+- name: Then a current release contains previous content
+  hosts: all
+  vars:
+    deploy_destination: "/tmp/test_deploy"
+    existing_project_file:
+        src: "/tmp/test_deploy/current/project"
+        content: "my project changed"
+
+  tasks:
+    - name: Current release contains previous project version
+      debug: msg=""
+    - include: 'asserts/file_content_equality.yml'
+      vars:
+        file_src: "{{existing_project_file.src}}"
+        file_content: "{{existing_project_file.content}}"

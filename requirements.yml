@@ -22,3 +22,8 @@
   path: roles/
   version: master
   name: deploy.project.php.symfony
+
+- src: jkanclerz.deploy-rollback
+  path: roles/
+  version: master
+  name: deploy.rollback
