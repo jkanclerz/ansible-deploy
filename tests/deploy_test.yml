@@ -61,7 +61,7 @@
 
     - name: Assert excluded direcory in rsync_opts not exists
       debug: msg=""
-    - include: 'assers/dir_not_exists.yml'
+    - include: 'asserts/dir_not_exists.yml'
       vars:
         dir_src: "{{dir_to_exclude.src}}"
 
