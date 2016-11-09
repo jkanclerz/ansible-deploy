@@ -15,12 +15,12 @@
 
 - name: When Deploying
   hosts: all
-  become: no
+  become: yes
   pre_tasks:
     - name: Include parameters
       include_vars: "vars/params.yml"
   roles:
-      - { role: 'deploy.setup', become: no }
+      - deploy.setup
       - deploy.project
       - deploy.finalize
 
@@ -73,7 +73,7 @@
 
 - name: When Deploying second time
   hosts: all
-  become: no
+  become: yes
   pre_tasks:
     - name: Include parameters
       include_vars: "vars/params.yml"

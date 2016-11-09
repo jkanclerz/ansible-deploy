@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  become: no
+  become: yes
   roles:
       - deploy.setup
       - deploy.project
