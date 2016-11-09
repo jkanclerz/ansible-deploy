@@ -1,0 +1,11 @@
+---
+- name: Assert excluded directory not exists
+  stat:
+    path: "{{ dir_src }}"
+  register: asserted_directory
+- fail:
+    msg: "Excluded directory exists"
+  when: asserted_directory.stat.isdir is defined and asserted_directory.stat.isdir
+- debug:
+    msg: "Excluded directory not exists"
+  when: asserted_file.stat.isdir is not defined

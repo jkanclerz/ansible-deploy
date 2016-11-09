@@ -52,8 +52,12 @@ Identifies project name
 
     deploy.project.scm: 'rsync'
 
-Identifies project deploy method. Could be choosen from (rsync|git). Make sure your target meets software requirements. git or rsync are instaled.
+Identifies project deploy method. Could be chosen from (rsync|git). Make sure your target meets software requirements. git or rsync are instaled.
 
+    deploy.project.rsync_opts: 
+        - '--exclude=excluded_dir'
+
+Allows to define additional rsync options (only applicable in case when rsync is used as deploy method)
 
 	deploy.project.source: 'dist'
 
