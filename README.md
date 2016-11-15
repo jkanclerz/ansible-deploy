@@ -133,4 +133,4 @@ MIT / BSD
 
 ## Author Information
 
-Created by [Jakub Kanclerz](http://jkan.pl)
+Created by [Jakub Kanclerz](http://jkan.pl) and [Others](https://github.com/jkanclerz/ansible-deploy/graphs/contributors)
