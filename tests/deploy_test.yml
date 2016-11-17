@@ -32,7 +32,7 @@
         src: "/tmp/test_deploy/current/project"
         content: "my project"
     dir_to_exclude:
-        src: "/tmp/test_deploy/directory_to_exclude"
+        src: "/tmp/test_deploy/current/directory_to_exclude"
   tasks:
     - name: Assert deploy destination path does exist
       stat:
