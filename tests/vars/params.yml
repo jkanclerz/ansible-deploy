@@ -17,6 +17,8 @@ deploy:
         dest: "config/settings.ini"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
+    rsync_opts:
+      - "--exclude=directory_to_exclude"
   finalize:
     required_sudo: False
     commands: []
