@@ -3,7 +3,7 @@ deploy:
     root: '/tmp/tar_deploy'
     name: 'My Test Project'
     scm: 'archive'
-    source: "/Users/jkanclerz/myplace/ansible/github-deploy/tests/dist/dist.tar.gz"
+    source: "tests/dist/dist.tar.gz"
     keep_previous_releases: 3
     copy_previous_release: True
     writable_dirs:
