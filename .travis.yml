@@ -17,6 +17,7 @@ script:
  - ln -s ./roles tests/roles
  - ansible-playbook -i inventory.ini --connection=local --sudo -v tests/deploy_test.yml --limit=localhost
  - ansible-playbook -i inventory.ini --connection=local --sudo -v tests/deploy_rollback_test.yml --limit=localhost
-
+ - cd tests/dist; tar cf dist.tar.gz ./*
+ - ansible-playbook -i inventory.ini --connection=local --sudo -v tests/deploy_tar_test.yml --limit=localhost
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/ 

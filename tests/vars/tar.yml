@@ -1,0 +1,20 @@
+deploy:
+  project:
+    root: '/tmp/tar_deploy'
+    name: 'My Test Project'
+    scm: 'archive'
+    source: "/Users/jkanclerz/myplace/ansible/github-deploy/tests/dist/dist.tar.gz"
+    keep_previous_releases: 3
+    copy_previous_release: True
+    writable_dirs:
+      - src: "var/files"
+    shared_dirs:
+      - "var/files"
+    shared_files: []
+    templated_files: []
+  finalize:
+    required_sudo: False
+    commands: []
+    to_be_restarted_services: []
+permission_model: 'chmod'
+foo: 'msg'
