@@ -3,7 +3,7 @@ deploy:
     root: '/tmp/tar_deploy'
     name: 'My Test Project'
     scm: 'archive'
-    source: "tests/dist/dist.tar.gz"
+    source: "dist/dist.tar.gz"
     keep_previous_releases: 3
     copy_previous_release: True
     writable_dirs:
