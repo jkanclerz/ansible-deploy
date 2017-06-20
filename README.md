@@ -51,8 +51,10 @@ Destination project directory.
 Identifies project name
 
     deploy.project.scm: 'rsync'
+    #or
+    deploy.project.scm: 'archive'
 
-Identifies project deploy method. Could be chosen from (rsync|git). Make sure your target meets software requirements. git or rsync are instaled.
+Identifies project deploy method. Could be chosen from (rsync|git|archive). Make sure your target meets software requirements. git or rsync or tar,unzip are instaled.
 
     deploy.project.rsync_opts: 
         - '--exclude=excluded_dir'
