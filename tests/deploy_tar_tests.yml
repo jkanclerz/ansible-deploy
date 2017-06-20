@@ -78,7 +78,7 @@
   become: yes
   pre_tasks:
     - name: Include parameters
-      include_vars: "vars/params.yml"
+      include_vars: "vars/tar.yml"
   roles:
       - deploy.setup
       - deploy.project
